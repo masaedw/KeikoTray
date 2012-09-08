@@ -23,7 +23,7 @@ namespace KeikoTray
         /// <param name="name">Keikoの名前</param>
         public Keiko(string url, string name)
         {
-            Url = Url;
+            Url = url;
             Name = name;
         }
 
