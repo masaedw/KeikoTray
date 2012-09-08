@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Drawing;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace KeikoTray
@@ -18,8 +16,14 @@ namespace KeikoTray
             var menuItem1 = new MenuItem();
             var notifyIcon1 = new NotifyIcon();
 
-            var icon1 = new Icon("tray.ico");
-            var icon2 = new Icon("Icon1.ico");
+            var icon000 = new Icon("000.ico");
+            var icon001 = new Icon("001.ico");
+            var icon010 = new Icon("010.ico");
+            var icon011 = new Icon("011.ico");
+            var icon100 = new Icon("100.ico");
+            var icon101 = new Icon("101.ico");
+            var icon110 = new Icon("110.ico");
+            var icon111 = new Icon("111.ico");
 
             contextMenu1.MenuItems.AddRange(new[] { menuItem1 });
 
@@ -31,24 +35,10 @@ namespace KeikoTray
                 Application.Exit();
             };
 
-            notifyIcon1.Icon = icon1;
-
             notifyIcon1.ContextMenu = contextMenu1;
 
             notifyIcon1.Text = "Form1 (NotifyIcon example)";
             notifyIcon1.Visible = true;
-
-            var t = Task.Factory.StartNew(() =>
-            {
-                while (true)
-                {
-                    notifyIcon1.Icon = icon1;
-                    Thread.Sleep(1000);
-                    notifyIcon1.Icon = icon2;
-                    Thread.Sleep(1000);
-                    notifyIcon1.BalloonTipText = "hogehoge";
-                }
-            });
 
             Application.Run();
         }
