@@ -28,16 +28,25 @@ namespace KeikoTray
 
             notifyIcon1.ContextMenu = contextMenu1;
 
-            notifyIcon1.Text = "[test]";
+            var name = "test";// TODO: 引数から拾う
+
+            notifyIcon1.Text = String.Format("[{0}]", name);
             notifyIcon1.Visible = true;
 
-            var keiko = new Keiko("http://virtualkeiko.herokuapp.com/", "test");
+            var keiko = new Keiko("http://virtualkeiko.herokuapp.com/", name);
             var anim = new KeikoAnimation(icon => notifyIcon1.Icon = icon);
 
             Observable.Interval(TimeSpan.FromSeconds(3.0))
                 .Select(_ => keiko.GetState())
                 .DistinctUntilChanged()
-                .Subscribe(anim.SetState);
+                .Subscribe(state =>
+                {
+                    if (state.StartsWith("220"))
+                    {
+                        notifyIcon1.ShowBalloonTip(1000, name, "Error", ToolTipIcon.Error);
+                    }
+                    anim.SetState(state);
+                });
 
             Application.Run();
         }
