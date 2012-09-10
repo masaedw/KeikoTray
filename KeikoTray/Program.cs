@@ -10,8 +10,16 @@ namespace KeikoTray
         /// アプリケーションのメイン エントリ ポイントです。
         /// </summary>
         [STAThread]
-        static void Main()
+        static void Main(string[] args)
         {
+            if (args.Length == 0)
+            {
+                Console.WriteLine("Usage: KeikoTray.exe keikoName");
+                Environment.Exit(1);
+            }
+
+            var name = args[0];
+
             var contextMenu1 = new ContextMenu();
             var menuItem1 = new MenuItem();
             var notifyIcon1 = new NotifyIcon();
@@ -27,8 +35,6 @@ namespace KeikoTray
             };
 
             notifyIcon1.ContextMenu = contextMenu1;
-
-            var name = "test";// TODO: 引数から拾う
 
             notifyIcon1.Text = String.Format("[{0}]", name);
             notifyIcon1.Visible = true;
