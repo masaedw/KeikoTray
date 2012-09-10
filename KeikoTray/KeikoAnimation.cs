@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Reactive.Linq;
 using System.Text.RegularExpressions;
+using KeikoTray.Properties;
 
 namespace KeikoTray
 {
@@ -10,14 +11,14 @@ namespace KeikoTray
         Action<Icon> Action;
         Icon[] Icons = new[]
             {
-                new Icon("000.ico"),
-                new Icon("001.ico"),
-                new Icon("010.ico"),
-                new Icon("011.ico"),
-                new Icon("100.ico"),
-                new Icon("101.ico"),
-                new Icon("110.ico"),
-                new Icon("111.ico"),
+                Resources._000,
+                Resources._001,
+                Resources._010,
+                Resources._011,
+                Resources._100,
+                Resources._101,
+                Resources._110,
+                Resources._111,
             };
         IDisposable Current;
 
