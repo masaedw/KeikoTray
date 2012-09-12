@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Reactive.Linq;
 using System.Windows.Forms;
 
@@ -40,6 +41,13 @@ namespace KeikoTray
             notifyIcon1.Visible = true;
 
             var keiko = new Keiko("http://virtualkeiko.herokuapp.com/", name);
+
+            if (!keiko.Exists())
+            {
+                Trace.WriteLine(String.Format("{0} doesn't exist.", name));
+                Environment.Exit(1);
+            }
+
             var anim = new KeikoAnimation(icon => notifyIcon1.Icon = icon);
 
             Observable.Interval(TimeSpan.FromSeconds(3.0))
