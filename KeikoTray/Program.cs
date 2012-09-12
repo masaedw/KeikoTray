@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Net;
 using System.Reactive.Linq;
 using System.Windows.Forms;
 
@@ -60,6 +61,17 @@ namespace KeikoTray
                         notifyIcon1.ShowBalloonTip(1000, name, "Error", ToolTipIcon.Error);
                     }
                     anim.SetState(state);
+                }, (Exception e) =>
+                {
+                    if (e is WebException)
+                    {
+                        // ignore web excetption (ex: 503 error)
+                        Trace.WriteLine(e);
+                    }
+                    else
+                    {
+                        throw new Exception("unknown exception", e);
+                    }
                 });
 
             Application.Run();
