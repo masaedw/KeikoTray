@@ -28,6 +28,28 @@ namespace KeikoTray
         }
 
         /// <summary>
+        /// 与えられた名前のKeikoが存在していればtrueを返します。
+        /// </summary>
+        /// <returns></returns>
+        public bool Exists()
+        {
+            try
+            {
+                GetState();
+            }
+            catch (WebException e)
+            {
+                if (e.Status == WebExceptionStatus.ProtocolError &&
+                    (e.Response as HttpWebResponse).StatusCode == HttpStatusCode.NotFound)
+                {
+                    return false;
+                }
+                throw;
+            }
+            return true;
+        }
+
+        /// <summary>
         /// 現在の状況を取得し、3桁の数字の文字列で返します。
         /// </summary>
         /// <returns></returns>
